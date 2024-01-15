@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap">
+    <body style="margin: 0; padding: 0; background: url('./assets/imagens/fundo1.png') center/cover no-repeat; font-family: 'Roboto', sans-serif;">
+</head>
+<body>
+    <header>
+        <img src="./assets/imagens/logo.png" alt="Logo">
+        <h1>Introvertido (a)</h1>
+    </header>
+    <img src="./assets/imagens/valete.png" alt="Imagem Lateral" class="imagem-lateral">
+    <div id="resultados">
+        <div class="resultado active">
+            <h2>Pontos Fortes:</h2>
+            <p>Coloque aqui uma descrição dos pontos fortes do personagem.</p>
+        </div>
+
+        <div class="resultado">
+            <h2>Pontos Fracos:</h2>
+            <p>Coloque aqui uma descrição dos pontos fracos do personagem.</p>
+        </div>
+
+        <div class="resultado">
+            <h2>Frase:</h2>
+            <p>Coloque aqui uma frase impactante relacionada ao personagem.</p>
+        </div>
+    </div>
+
+    <div id="buttons">
+        <div class="button" onclick="nextResult()"></div>
+        <div id="pers" onclick="redirectToCharacterPage()"></div>
+    </div>
+
+    <script>
+        var personagem = localStorage.getItem('personagem');
+    var currentResult = 0;
+
+    document.getElementById('pers').innerHTML = '<a href="#" onclick="redirectToCharacterPage()">CONTINUAR</a>';
+
+    function redirectToCharacterPage() {
+        if (personagem == 1) {
+            window.location.href = "../página boneco/homem.html";
+        } else {
+            window.location.href = "../página boneco/mulher.html";
+        }
+    }
+
+    function nextResult() {
+        currentResult++;
+        if (currentResult >= document.getElementsByClassName('resultado').length) {
+            currentResult = 0;
+        }
+
+        var transformValue = -currentResult * 100 + '%';
+        document.getElementById('resultados').style.transform = 'translateX(' + transformValue + ')';
+    }
+
+    </script>
+
+    <style>
+:root {
+    --cor-1: #454545;
+    --cor-2: #f0f0f0;
+    --cor-3: #333333;
+    --cor-4: #ffffff;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow: hidden;
+    font-family: 'Roboto', sans-serif;
+    background-image: url('/assets/imagens/fundo.png');
+}
+
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--cor-4);
+    color: var(--cor-1);
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    font-size: 36px;
+    font-weight: 700;
+}
+
+header img {
+    background-image: url(/assets/imagens/logo.png);
+    width: 350px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+header nav {
+    display: flex;
+    align-items: center;
+}
+
+header nav a {
+    display: block;
+    color: var(--cor-4);
+    font-size: 24px;
+    font-weight: 300;
+    padding: 10px;
+    margin: 0 10px;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    transition: border-color 0.3s ease;
+}
+
+header nav a:hover {
+    border-color: var(--cor-4);
+}
+.imagem-lateral {
+    position: fixed;
+    top: 25%;
+    left: 0;
+    transform: translateY(-30%);
+    width: 550px; 
+    height: 550px; 
+    margin: 0;
+    z-index: 1;
+    animation: floatAnimation 2s infinite alternate ease-in-out;
+}
+@keyframes floatAnimation {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-15px);
+    }
+}
+#pers {
+    position: fixed;
+    bottom: 0;
+    left: 45%;
+    right: 45%;
+    transform: translateX(50%);
+    margin: 10px;
+    display: flex;
+    width: 220px;
+    height: 220px;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    background-image: url('./assets/imagens/azul.png');
+    background-size: cover;
+    cursor: pointer;
+    text-indent: -9999px;
+    animation: floatAnimation 2s infinite alternate ease-in-out;
+}
+@keyframes floatAnimation {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-15px);
+    }
+}
+
+.resultado {
+    display: none;
+    width: 100vw;
+    white-space: normal;
+    box-sizing: border-box;
+    padding: 20px;
+    transition: transform 0.5s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.resultado.active {
+    display: flex;
+}
+
+#resultados {
+    display: flex;
+    justify-content: flex-start; 
+    align-items: center;
+    transition: transform 0.5s ease-in-out;
+}
+
+#resultados div {
+    flex: 0 0 100vw;
+    box-sizing: border-box;
+    padding: 20px;
+}
+
+
+#resultados h2 {
+    font-size: 36px;
+    color: var(--cor-3);
+    font-weight: 700;
+}
+
+#resultados p {
+    font-size: 24px;
+    color: var(--cor-3);
+    font-weight: 300;
+    text-align: center;
+}
+
+#buttons {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    box-sizing: border-box;
+    margin-top: auto;
+}
+
+.button {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    margin: 10px;
+    display: block;
+    width: 100px;
+    height: 100px;
+    background-image: url(./assets/imagens/seta.png);
+    background-size: cover;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-image: url(./assets/imagens/seta2.png);
+}
+    </style>
+</body>
+</html>
